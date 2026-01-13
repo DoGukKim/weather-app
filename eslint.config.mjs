@@ -41,6 +41,12 @@ const eslintConfig = defineConfig([
       'simple-import-sort/exports': 'error',
     },
   },
+  {
+    files: ['src/shared/lib/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
 ]);
 
 export default eslintConfig;

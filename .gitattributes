@@ -3,6 +3,7 @@
 
 # Force the following filetypes to have LF line endings
 *.js text eol=lf
+*.mjs text eol=lf
 *.jsx text eol=lf
 *.ts text eol=lf
 *.tsx text eol=lf
