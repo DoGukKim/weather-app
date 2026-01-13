@@ -21,7 +21,7 @@ function parseClientEnv() {
   if (!parsed.success) {
     const errorDetails = formatZodError(parsed.error);
 
-    console.error(`❌ Invalid client environment variables: ${errorDetails}`);
+    console.error(`❌ Invalid client environment variables:\n${errorDetails}`);
 
     throw new Error('Invalid client environment variables');
   }

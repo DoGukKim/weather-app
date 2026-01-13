@@ -4,40 +4,40 @@ import {
   HourlyTemperature,
 } from '../model/types';
 
-import { WeatherResponse } from './schemas';
+import {
+  CurrentTemperatureResponse,
+  DailyTemperatureRangeResponse,
+  HourlyTemperatureResponse,
+} from './schemas';
 
 export function mapToCurrentTemperature(
-  dto: WeatherResponse,
+  dto: CurrentTemperatureResponse,
 ): CurrentTemperature {
-  const { current, current_units } = dto;
-
   return {
-    temp: current.temperature_2m,
-    unit: current_units.temperature_2m,
-    weatherCode: current.weather_code,
+    temp: dto.current.temperature_2m,
+    unit: dto.current_units.temperature_2m,
+    weatherCode: dto.current.weather_code,
   };
 }
+
 export function mapToDailyTemperatureRange(
-  dto: WeatherResponse,
+  dto: DailyTemperatureRangeResponse,
 ): DailyTemperatureRange {
-  const { daily, daily_units } = dto;
-
   return {
-    minTemp: daily.temperature_2m_min[0],
-    maxTemp: daily.temperature_2m_max[0],
-    unit: daily_units.temperature_2m_max,
-    weatherCode: daily.weather_code[0],
+    maxTemp: dto.daily.temperature_2m_max[0],
+    minTemp: dto.daily.temperature_2m_min[0],
+    unit: dto.daily_units.temperature_2m_max,
+    weatherCode: dto.daily.weather_code[0],
   };
 }
-export function mapToHourlyTemperature(
-  dto: WeatherResponse,
-): HourlyTemperature {
-  const { hourly, hourly_units } = dto;
 
+export function mapToHourlyTemperature(
+  dto: HourlyTemperatureResponse,
+): HourlyTemperature {
   return {
-    temps: hourly.temperature_2m,
-    times: hourly.time,
-    unit: hourly_units.temperature_2m,
-    weatherCode: hourly.weather_code[0],
+    temps: dto.hourly.temperature_2m,
+    times: dto.hourly.time,
+    unit: dto.hourly_units.temperature_2m,
+    weatherCode: dto.hourly.weather_code,
   };
 }

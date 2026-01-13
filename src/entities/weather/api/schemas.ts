@@ -2,8 +2,6 @@ import { z } from 'zod';
 
 const Temperature = z.number();
 
-const Temperatures = z.array(Temperature);
-
 const WeatherCode = z
   .number()
   .int()
@@ -11,31 +9,26 @@ const WeatherCode = z
   .max(99)
   .describe('WMO weather code');
 
-const WeatherCodes = z.array(WeatherCode);
-
-const ISO8601Timestamp = z.string();
-
 const TemperatureUnit = z.enum(['°C', '°F']);
 
 export const CurrentTemperatureSchema = z.object({
   temperature_2m: Temperature,
-  weather_code: WeatherCode.min(1),
-});
-
-export const DailyTemperatureRangeSchema = z.object({
-  temperature_2m_min: Temperatures.min(1),
-  temperature_2m_max: Temperatures.min(1),
-  weather_code: WeatherCodes.min(1),
-});
-
-export const HourlyTemperatureSchema = z.object({
-  temperature_2m: Temperatures.min(1),
-  time: z.array(ISO8601Timestamp).min(1),
-  weather_code: WeatherCodes.min(1),
+  weather_code: WeatherCode,
 });
 
 export const CurrentUnitsSchema = z.object({
   temperature_2m: TemperatureUnit,
+});
+
+export const CurrentTemperatureResponseSchema = z.object({
+  current: CurrentTemperatureSchema,
+  current_units: CurrentUnitsSchema,
+});
+
+export const DailyTemperatureRangeSchema = z.object({
+  temperature_2m_min: z.array(Temperature),
+  temperature_2m_max: z.array(Temperature),
+  weather_code: z.array(WeatherCode),
 });
 
 export const DailyUnitsSchema = z.object({
@@ -43,19 +36,33 @@ export const DailyUnitsSchema = z.object({
   temperature_2m_max: TemperatureUnit,
 });
 
-export const HourlyUnitsSchema = z.object({
-  temperature_2m: TemperatureUnit,
+export const DailyTemperatureRangeResponseSchema = z.object({
+  daily: DailyTemperatureRangeSchema,
+  daily_units: DailyUnitsSchema,
 });
 
-export const WeatherResponseSchema = z
-  .object({
-    current: CurrentTemperatureSchema,
-    daily: DailyTemperatureRangeSchema,
-    hourly: HourlyTemperatureSchema,
-    current_units: CurrentUnitsSchema,
-    daily_units: DailyUnitsSchema,
-    hourly_units: HourlyUnitsSchema,
-  })
-  .describe('Open-Meteo weather API response');
+export const HourlyTemperatureSchema = z.object({
+  temperature_2m: z.array(Temperature),
+  time: z.array(z.string()),
+  weather_code: z.array(WeatherCode),
+});
 
-export type WeatherResponse = z.infer<typeof WeatherResponseSchema>;
+export const HourlyUnitsSchema = z.object({
+  temperature_2m: TemperatureUnit,
+  weather_code: WeatherCode,
+});
+
+export const HourlyTemperatureResponseSchema = z.object({
+  hourly: HourlyTemperatureSchema,
+  hourly_units: HourlyUnitsSchema,
+});
+
+export type CurrentTemperatureResponse = z.infer<
+  typeof CurrentTemperatureResponseSchema
+>;
+export type DailyTemperatureRangeResponse = z.infer<
+  typeof DailyTemperatureRangeResponseSchema
+>;
+export type HourlyTemperatureResponse = z.infer<
+  typeof HourlyTemperatureResponseSchema
+>;

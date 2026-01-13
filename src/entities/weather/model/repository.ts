@@ -4,11 +4,23 @@ import {
   HourlyTemperature,
 } from './types';
 
+export interface WeatherQueryOptions {
+  latitude: number;
+  longitude: number;
+  unit?: 'celsius' | 'fahrenheit';
+  timezone?: 'Asia/Seoul';
+}
+
+export interface HourlyQueryOptions extends WeatherQueryOptions {
+  forecastDays?: number;
+}
+
 export interface WeatherRepository {
-  getCurrentTemperature(lat: number, lon: number): Promise<CurrentTemperature>;
+  getCurrentTemperature(
+    options: WeatherQueryOptions,
+  ): Promise<CurrentTemperature>;
   getDailyTemperatureRange(
-    lat: number,
-    lon: number,
+    options: WeatherQueryOptions,
   ): Promise<DailyTemperatureRange>;
-  getHourlyTemperature(lat: number, lon: number): Promise<HourlyTemperature>;
+  getHourlyTemperature(options: HourlyQueryOptions): Promise<HourlyTemperature>;
 }

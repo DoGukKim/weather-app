@@ -17,5 +17,5 @@ export interface HourlyTemperature {
   temps: number[];
   times: string[];
   unit: TemperatureUnit;
-  weatherCode: number;
+  weatherCode: number[];
 }
