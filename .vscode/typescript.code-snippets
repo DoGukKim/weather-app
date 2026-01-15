@@ -1,0 +1,12 @@
+{
+  "Use Client Directive": {
+    "prefix": "uc",
+    "body": ["'use client';", "", "$0"],
+    "description": "Add 'use client' directive for Next.js client components",
+  },
+  "Use Server Directive": {
+    "prefix": "us",
+    "body": ["'use server';", "", "$0"],
+    "description": "Add 'use server' directive for Next.js server actions",
+  },
+}
