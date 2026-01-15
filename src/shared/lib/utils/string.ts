@@ -1,3 +1,3 @@
-export function removeSpaces(str: string): string {
-  return str.replaceAll(' ', '');
+export function replaceAll(str: string, from: string, to: string): string {
+  return str.replaceAll(from, to);
 }

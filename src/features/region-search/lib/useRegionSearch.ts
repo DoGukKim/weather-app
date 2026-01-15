@@ -7,7 +7,7 @@ import {
 } from 'react';
 
 import { Regions } from '@/entities/region';
-import { removeSpaces } from '@/shared/lib/utils';
+import { replaceAll } from '@/shared/lib/utils';
 
 interface UseRegionSearchReturn {
   query: string;
@@ -23,9 +23,12 @@ export function useRegionSearch(regions: Regions): UseRegionSearchReturn {
   const isStale = query !== deferredQuery;
 
   const filteredRegions = useMemo(() => {
-    if (!deferredQuery || !regions) return [];
+    if (!deferredQuery || !regions) return regions;
 
-    return regions.filter((r) => r.includes(removeSpaces(deferredQuery)));
+    const normalizedQuery = replaceAll(deferredQuery, ' ', '');
+    return regions.filter((r) =>
+      replaceAll(r, '-', '').includes(normalizedQuery),
+    );
   }, [deferredQuery, regions]);
 
   return {
