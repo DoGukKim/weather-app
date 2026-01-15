@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Dispatch,
   SetStateAction,
@@ -6,7 +8,6 @@ import {
   useState,
 } from 'react';
 
-import { Regions } from '@/entities/region';
 import { replaceAll } from '@/shared/lib/utils';
 
 interface UseRegionSearchReturn {
@@ -14,10 +15,10 @@ interface UseRegionSearchReturn {
   setQuery: Dispatch<SetStateAction<string>>;
   deferredQuery: string;
   isStale: boolean;
-  filteredRegions: Regions;
+  filteredRegions: string[];
 }
 
-export function useRegionSearch(regions: Regions): UseRegionSearchReturn {
+export function useRegionSearch(regions: string[]): UseRegionSearchReturn {
   const [query, setQuery] = useState('');
   const deferredQuery = useDeferredValue(query);
   const isStale = query !== deferredQuery;
