@@ -8,10 +8,10 @@ const FORECAST_KEY = [...BASE_KEY, 'forecast'] as const;
 export const weatherKeys = {
   all: BASE_KEY,
   forecasts: () => FORECAST_KEY,
-  current: ({ latitude, longitude }: WeatherQueryOptions) =>
-    [...FORECAST_KEY, 'current', latitude, longitude] as const,
-  daily: ({ latitude, longitude }: WeatherQueryOptions) =>
-    [...FORECAST_KEY, 'daily', latitude, longitude] as const,
-  hourly: ({ latitude, longitude, timezone }: HourlyQueryOptions) =>
-    [...FORECAST_KEY, 'hourly', latitude, longitude, timezone] as const,
+  current: ({ latitude, longitude, unit }: WeatherQueryOptions) =>
+    [...FORECAST_KEY, 'current', latitude, longitude, unit] as const,
+  daily: ({ latitude, longitude, unit }: WeatherQueryOptions) =>
+    [...FORECAST_KEY, 'daily', latitude, longitude, unit] as const,
+  hourly: ({ latitude, longitude, timezone, unit }: HourlyQueryOptions) =>
+    [...FORECAST_KEY, 'hourly', latitude, longitude, timezone, unit] as const,
 } as const satisfies QueryKeyFactory;

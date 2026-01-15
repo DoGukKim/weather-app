@@ -24,7 +24,7 @@ export function useRegionSearch(regions: string[]): UseRegionSearchReturn {
   const isStale = query !== deferredQuery;
 
   const filteredRegions = useMemo(() => {
-    if (!deferredQuery || !regions) return regions;
+    if (!deferredQuery || !regions) return regions ?? [];
 
     const normalizedQuery = replaceAll(deferredQuery, ' ', '');
     return regions.filter((r) =>

@@ -32,12 +32,19 @@ export const openMeteoRepository: WeatherRepository = {
 
     return mapToDailyTemperatureRange(dto);
   },
-  async getHourlyTemperature({ latitude, longitude, unit, timezone }) {
+  async getHourlyTemperature({
+    latitude,
+    longitude,
+    unit,
+    timezone,
+    forecastDays,
+  }) {
     const dto = await getHourlyTemperature({
       latitude,
       longitude,
       unit,
       timezone,
+      forecastDays,
     });
 
     return mapToHourlyTemperature(dto);

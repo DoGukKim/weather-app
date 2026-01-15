@@ -49,7 +49,7 @@ export const HourlyTemperatureSchema = z.object({
 
 export const HourlyUnitsSchema = z.object({
   temperature_2m: TemperatureUnit,
-  weather_code: WeatherCode,
+  weather_code: z.array(WeatherCode),
 });
 
 export const HourlyTemperatureResponseSchema = z.object({
